@@ -1,0 +1,47 @@
+Antes de iniciar as atividades, crie um ambiente virtual!
+No VSCode é fácil.  Se não tiver a biblioteca venv, instale usando: 
+ 
+    pip install venv
+
+Na pasta que você vai usar como repositório, abra o prompt e digite:
+
+    python -m venv .venv_openai
+
+Depois crie um arquivo .gitignore na raiz da pasta para não subir a pasta .venv para o repositório no github.
+
+Após isso execute o activate que está na pasta Script:
+    \.venv_openai\Scripts> .\activate
+
+Depois disso seu ambiente virtual estará ativo. Você já poderá instalar as biblioteca necessárias.
+
+    pip install openai
+
+Depois visite este site para criar uma key para sa API:
+
+    https://platform.openai.com/account/api-keys
+
+Instale a biblioteca python-dotenv
+
+    pip install python-dotenv
+
+Crie um arquivo na raiz do diretório chamado .env. E coloque no arquivo:
+
+    PYTHONPATH = "[cole aqui o caminho do seu .env]"
+
+    API_KEY_OPENAI = "[cole aqui sua api key iniciada por sk-]"
+
+No arquivo .py não esqueça de iniciar por:
+
+    from dotenv import dotenv_values
+
+    import openai
+
+    env = dotenv_values(".env")
+
+    API_KEY = env["API_KEY_OPENAI"]
+
+Pronto! Agora a sua chave está armazenada na constante API_KEY.
+
+Você pode setar o valor da api key também através do comando:
+
+    openai.api_key = "sk-..."
