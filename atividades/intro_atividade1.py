@@ -10,6 +10,10 @@ print(API_KEY)
 
 openai.api_key = API_KEY
 
+# Nesta primeira atividade as instruções são passadas da maneira mais clara e 
+# detalhada possível. Isso ajuda o modelo a identificar claramente as entradas
+# e te dá respostas mais aderentes, menos prolixas.
+
 
 def get_completion(prompt, model="gpt-3.5-turbo"):
     
@@ -26,16 +30,16 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     :return: A string representing the chatbot's response to the given prompt.
     """
     messages = [{"role": "user", "content": prompt}]
-    response = openai.ChatCompletion.create(
+    response_struct = openai.ChatCompletion.create(
         model=model,
         messages=messages,
         temperature=0, # this is the degree of randomness of the model's output
     )
-    return response.choices[0].message["content"]
+    return response_struct.choices[0].message["content"]
 
 # Trabalhando com prompts.
 # Tática 1: Usando delimitadores para indicar claramente as entradas de formas separadas.
-# Os delimitadores podem ser aspas simples, aspas duplas, <>, <tag></tag, :
+# Os delimitadores podem ser aspas simples, aspas duplas, <>, <tag></tag, ---, : etc
 
 text = """
     You should express what you want a model to do by \
@@ -137,3 +141,19 @@ print("Completion for Text 2:")
 print(response)
 
 
+#Tática 4: Prompt "Few-shot"
+
+prompt = f"""
+Your task is to answer in a consistent style.
+
+<child>: Teach me about patience.
+
+<grandparent>: The river that carves the deepest \ 
+valley flows from a modest spring; the \ 
+grandest symphony originates from a single note; \ 
+the most intricate tapestry begins with a solitary thread.
+
+<child>: Teach me about resilience.
+"""
+response = get_completion(prompt)
+print(response)
